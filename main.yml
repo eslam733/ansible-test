@@ -1,6 +1,6 @@
 ---
 - name: Exercise
-  hosts: 3.82.49.143
+  hosts: all
   user: ubuntu
   become: true
   become_method: sudo
