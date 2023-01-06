@@ -1,6 +1,9 @@
 ---
 - name: Exercise #1
-  hosts: localhost
-
+  hosts: all
+  user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root
   roles:
-   - print
+    - setup
