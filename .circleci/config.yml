@@ -16,7 +16,7 @@ jobs:
           command: |
             aws cloudformation deploy \
             --template-file bucket.yml \
-            --parameter-overrides MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:7}" \
+            --parameter MyBucketName="mybucket-${CIRCLE_WORKFLOW_ID:0:7}" \
             --stack-name stack-create-bucket-${CIRCLE_WORKFLOW_ID:0:7}
             
     # # Uncomment the step below if yoou wish to upload all contents of the current directory to the S3 bucket
