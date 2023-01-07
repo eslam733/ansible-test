@@ -25,7 +25,12 @@ jobs:
     steps:
       - checkout
       - run: echo "[all]" inventory
-      - run: aws ec2 describe-instances  --query 'Reservations[*].Instances[*].PublicIpAddress'  --output text >> inventory
+      - run:
+          name: get ec2 ip
+          command: |
+            aws ec2 describe-instances  \
+            --query 'Reservations[*].Instances[*].PublicIpAddress'  \
+            --output text >> inventory
       - add_ssh_keys:
           fingerprints: ["0b:dd:ac:f7:58:30:0b:58:67:86:0b:81:4d:65:3a:f6"]
       - run:
