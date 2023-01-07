@@ -17,7 +17,8 @@ jobs:
           name: Install Ansible
           command: |
             apk add --update ansible
-      - run: sudo chmod 744 inventory 
+      - run: 
+          command: chmod 744 inventory 
       - run:
           name: Run Playbook and Configure server
           command: |
