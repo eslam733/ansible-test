@@ -6,30 +6,36 @@ version: 2.1
 # aws-cli: circleci/aws-cli@2.0.3
 # Define the jobs we want to run for this project
 jobs:
-  # create_infrastructure:
-  #   docker:
-  #     - image: amazon/aws-cli
-  #   steps:
-  #     - checkout
-  #     - run:
-  #         name: Create Cloudformation Stack
-  #         command: |
-  #           aws cloudformation deploy \
-  #             --template-file template.yml \
-  #             --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
-  #             --region us-east-1
-  #     - run: echo "[all]" inventory
-  #     - run:
-  #         name: get ec2 ip
-  #         command: |
-  #           aws ec2 describe-instances  \
-  #           --query 'Reservations[*].Instances[*].PublicIpAddress'  \
-  #           --output text >> inventory
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
+    steps:
+      - checkout
+      - run:
+          name: Create Cloudformation Stack
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
+              --region us-east-1
+      - run: echo "[all]" inventory
+      - run:
+          name: get ec2 ip
+          command: |
+            aws ec2 describe-instances  \
+            --query 'Reservations[*].Instances[*].PublicIpAddress'  \
+            --output text >> inventory
+      - save_cache:
+          key: inventory
+          paths:
+            - inventory
   configure_website:
     docker:
       - image: python:3.7-alpine3.11
     steps:
       - checkout
+      - restore_cache:
+          key: inventory
       - add_ssh_keys:
           fingerprints: ["0b:dd:ac:f7:58:30:0b:58:67:86:0b:81:4d:65:3a:f6"]
       - run:
@@ -48,8 +54,8 @@ workflows:
   # Name the workflow
   myWorkflow:
     jobs:
-      # - create_infrastructure
-      - configure_website
-          # requires:
-          #   - create_infrastructure
+      - create_infrastructure
+      - configure_website:
+          requires:
+            - create_infrastructure
       # - myjob2
