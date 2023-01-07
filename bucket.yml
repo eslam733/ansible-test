@@ -1,9 +1,9 @@
 Parameters:
 # New Bucket name
-MyBucketName:
-  Description: Existing Bucket name
-  Type: String
-  Default: promation2
+  MyBucketName:
+    Description: Existing Bucket name
+    Type: String
+    Default: promation2
 Resources:
 WebsiteBucket:
   Type: AWS::S3::Bucket
