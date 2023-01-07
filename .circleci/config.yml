@@ -17,12 +17,12 @@ jobs:
           name: Install Ansible
           command: |
             apk add --update ansible
-      - run: 
-          command: chmod 744 inventory 
+      # - run: 
+      #     command: chmod 744 inventory 
       - run:
           name: Run Playbook and Configure server
           command: |
-            ansible-playbook -i inventory main.yml
+            ansible-playbook -i inventory.ini main.yml
 
 # Sequential workflow
 workflows:
