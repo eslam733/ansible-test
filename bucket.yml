@@ -1,5 +1,5 @@
 Parameters:
-# New Bucket name
+  # New Bucket name
   MyBucketName:
     Description: Existing Bucket name
     Type: String
@@ -16,11 +16,11 @@ WebsiteBucket:
 WebsiteBucketPolicy:
   Type: AWS::S3::BucketPolicy
   Properties:
-    Bucket: !Ref 'WebsiteBucket'
+    Bucket: !Ref "WebsiteBucket"
     PolicyDocument:
       Statement:
-      - Sid: PublicReadForGetBucketObjects
-        Effect: Allow
-        Principal: '*'
-        Action: s3:GetObject
-        Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: "*"
+          Action: s3:GetObject
+          Resource: !Join ["", ["arn:aws:s3:::", !Ref "WebsiteBucket", /*]]
