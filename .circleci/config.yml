@@ -45,6 +45,6 @@ workflows:
     jobs:
       - create_infrastructure
       - configure_website:
-          require:
+          requires:
             - create_infrastructure
       # - myjob2
