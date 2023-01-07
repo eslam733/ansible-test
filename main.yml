@@ -2,7 +2,7 @@
 - name: Exercise
   hosts: all
   user: ubuntu
-  become: yes
+  become: True
   become_method: sudo
   become_user: root
   roles:
