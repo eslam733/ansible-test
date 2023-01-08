@@ -1,1 +1,2 @@
-# ansible-test
+# CI / CD with AWS
+circleCi with ansible example
